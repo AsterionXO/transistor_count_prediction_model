@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transistor Count Analysis and Prediction</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header class="hero-header">
+        <div class="overlay">
+            <h1>Transistor Count Analysis & Prediction</h1>
+            <div class="header-actions">
+                <button id="creatorBtn" class="btn-small"><i class="fas fa-user"></i> Creator Profile</button>
+                <button id="contactBtn" class="btn-small"><i class="fas fa-address-card"></i> Contact Info</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <section class="model-info">
+            <h2 class="section-title">Model Overview</h2>
+            <div class="info-container">
+                <div class="info-text">
+                    <h3>Methodology</h3>
+                    <p>This tool uses a Log-Log Linear Regression model trained on historical microprocessor data. Because transistor counts grow exponentially, the model converts inputs (like node size and area) into a logarithmic scale to make accurate straight-line predictions.</p>
+
+                    <h3>Why Errors Occur</h3>
+                    <p>Predictions may deviate from reality due to architectural shifts (e.g., the move to chiplets), extreme lithography changes, or new materials that disrupt historical scaling trends.</p>
+                </div>
+
+                <div class="accuracy-row">
+                    <div class="acc-card">
+                        <span class="acc-label">R² Score (Accuracy)</span>
+                        <span class="acc-value">0.997</span>
+                        <small>Near perfect fit</small>
+                    </div>
+                    <div class="acc-card">
+                        <span class="acc-label">Mean Residual Error</span>
+                        <span class="acc-value">0.16</span>
+                        <small>Avg. Log deviation</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <section class="gallery">
+            <h2 class="section-title">Statistical Analysis & Visualizations</h2>
+
+            <div class="grid">
+                <div class="card featured">
+                    <h3>Feature Correlation Matrix</h3>
+                    <img src="/static/transistor_correlation_row.png" alt="Correlation Heatmap">
+                </div>
+                <div class="card half-width">
+                    <h3>Linear Regression Fit</h3>
+                    <img src="/static/regression_model.png" alt="Regression Model">
+                </div>
+                <div class="card half-width">
+                    <h3>Residual Error Distribution</h3>
+                    <img src="/static/residuals.png" alt="Residuals">
+                </div>
+                <div class="card">
+                    <h3>Temporal Trend (Year)</h3>
+                    <img src="/static/year_count_plots.png" alt="Year Plot">
+                </div>
+                <div class="card">
+                    <h3>Lithography Scaling (Node)</h3>
+                    <img src="/static/node_count_plots.png" alt="Node Plot">
+                </div>
+                <div class="card">
+                    <h3>Die Size Correlation (Area)</h3>
+                    <img src="/static/area_count_plots.png" alt="Area Plot">
+                </div>
+                <div class="card">
+                    <h3>Density Evolution</h3>
+                    <img src="/static/trans_density_count_plots.png" alt="Density Plot">
+                </div>
+                <div class="card centered-card">
+                    <h3>Power Constraints</h3>
+                    <img src="/static/pow_dens_count_plots.png" alt="Power Plot">
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <section class="prediction-box">
+            <h2 class="section-title">Predictive Modeling Interface</h2>
+            <form id="predictForm">
+                <div class="form-group span-3">
+                    <label>Target Year <span class="tooltip" data-tip="The future year for projection">?</span></label>
+                    <input type="number" id="year" placeholder="2025" required>
+                </div>
+                <div class="form-group span-3">
+                    <label>Node Size (nm) <span class="tooltip" data-tip="Process technology size (e.g. 5nm, 3nm)">?</span></label>
+                    <input type="number" step="any" id="node_size" placeholder="5" required>
+                </div>
+                <div class="form-group span-2">
+                    <label>Die Area (mm²) <span class="tooltip" data-tip="Physical size of the chip">?</span></label>
+                    <input type="number" step="any" id="area" placeholder="100" required>
+                </div>
+                <div class="form-group span-2">
+                    <label>Power Density (W/cm²) <span class="tooltip" data-tip="Thermal design power per area">?</span></label>
+                    <input type="number" step="any" id="power_density" placeholder="50" required>
+                </div>
+                <div class="form-group span-2">
+                    <label>Trans. Density (tr/mm²) <span class="tooltip" data-tip="Millions of transistors per mm²">?</span></label>
+                    <input type="number" step="any" id="trans_density" placeholder="1000000" required>
+                </div>
+                <button type="submit" id="predictBtn" class="span-full centered-btn">RUN PROJECTION</button>
+            </form>
+
+            <div id="result" class="result-box hidden">
+                <h3>Projected Transistor Count</h3>
+                <p id="predictionValue" class="big-number">0</p>
+
+                <div class="metrics-grid">
+                    <div class="metric">
+                        <small>Confidence Interval (±20%)</small>
+                        <span id="confInterval">--</span>
+                    </div>
+                    <div class="metric">
+                        <small>Moore's Law Comparison</small>
+                        <span id="mooresComp">--</span>
+                    </div>
+                </div>
+                <div style="margin-top: 15px; text-align: center;">
+                    <button id="exportBtn" class="btn-small">Download Report (PDF)</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="chart-section" style="margin-bottom: 50px;">
+            <h2 class="section-title">Live Trend Visualization</h2>
+            <div class="chart-container">
+                <canvas id="trendChart"></canvas>
+            </div>
+            <p class="chart-caption">Real-time comparison of Model Projection vs. Moore's Law theoretical limit.</p>
+        </section>
+
+    </div>
+
+    <div id="creatorModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close" data-target="creatorModal">&times;</span>
+            <h2>Creator Profile</h2>
+            <div class="profile-card">
+                <div class="profile-row">
+                    <span class="label">Name:</span>
+                    <span class="value">Mahesh Mishra</span>
+                </div>
+                <div class="profile-row">
+                    <span class="label">Age:</span>
+                    <span class="value">20</span>
+                </div>
+                <div class="profile-row">
+                    <span class="label">Branch:</span>
+                    <span class="value">Electronics & Communication Eng. (ECE)</span>
+                </div>
+                <div class="profile-row">
+                    <span class="label">Institution:</span>
+                    <span class="value">Odisha University of Technology and Research</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="contactModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close" data-target="contactModal">&times;</span>
+            <h2>Contact Information</h2>
+            <div class="contact-list">
+                <a href="tel:+918260573315" class="contact-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>+91 82605 73315</span>
+                </a>
+                <a href="mailto:maheshmishraww1998@gmail.com" class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>maheshmishraww1998@gmail.com</span>
+                </a>
+                <a href="https://github.com/AsterionXO" target="_blank" class="contact-item">
+                    <i class="fab fa-github"></i>
+                    <span>github.com/AsterionXO</span>
+                </a>
+                <a href="https://www.linkedin.com/in/mahesh-mishra-939681320" target="_blank" class="contact-item">
+                    <i class="fab fa-linkedin"></i>
+                    <span>LinkedIn Profile</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
