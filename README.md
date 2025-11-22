@@ -10,6 +10,7 @@ This repository contains a complete workflow for predicting transistor count usi
 * 📁 Dataset used for modelling
 * 🖥️ Backend and frontend structure for deployment
 * 📜 Apache 2.0 license
+* 🌐 Live demo: [https://tranistorcount.onrender.com/](https://tranistorcount.onrender.com/)
 
 ---
 
@@ -86,13 +87,14 @@ Goal: **Accurately estimate transistor count based on project attributes.**
 
 ---
 
-## **🧑‍💻 Usage**
+## **💻 Usage**
 
 * Experiment with different models inside the notebook
 * Integrate the trained model into the backend for live predictions
 * Connect the frontend to display or accept user inputs
+* Visit the live demo: [https://tranistorcount.onrender.com/](https://tranistorcount.onrender.com/)
 * Extend the dataset and retrain for better accuracy
-* Possible deployment: Railway, Render, Heroku, AWS, etc.
+* Possible deployment platforms: Railway, Render, Heroku, AWS, etc.
 
 ---
 
@@ -100,19 +102,20 @@ Goal: **Accurately estimate transistor count based on project attributes.**
 
 * Core analysis and dataset ✔️
 * Backend/frontend structure available ✔️
+* Live demo deployed ✔️
 * Further improvements needed in:
 
   * Accuracy tuning
   * Frontend integration
-  * Deployment flow
+  * Deployment flow and scalability
 
 ---
 
 ## **🤝 Contributing**
 
 1. Fork the repo
-2. Create a new branch
-3. Commit changes
+2. Create a new branch (e.g., `feature-X`)
+3. Commit your changes
 4. Push the branch
 5. Open a pull request
 
@@ -126,7 +129,6 @@ Licensed under **Apache License 2.0**.
 
 ## **📬 Contact**
 
-If you have feedback or suggestions, feel free to open an issue on GitHub!
+If you have feedback or suggestions, feel free to open an issue on GitHub or reach out directly!
 
 ---
-
