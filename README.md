@@ -1,7 +1,3 @@
-Here is the improved README **with emojis** and **only the code/commands in code blocks** — everything else is plain text:
-
----
-
 # **Transistor Count Prediction Model** 🧮⚡
 
 *A machine-learning project to predict transistor counts from dataset features.*
@@ -134,8 +130,3 @@ If you have feedback or suggestions, feel free to open an issue on GitHub!
 
 ---
 
-If you'd like, I can also prepare:
-✨ A more aesthetic README with badges
-📸 A version with screenshots
-💡 A short minimal version
-📘 A very detailed documentation-style version
