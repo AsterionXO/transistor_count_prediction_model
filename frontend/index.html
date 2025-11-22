@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transistor Count Analysis and Prediction</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -12,7 +12,7 @@
 </head>
 <body>
 
-    <header class="hero-header">
+    <header class="hero-header" style="background-image: url('{{ url_for('static', filename='front_view.png') }}');">
         <div class="overlay">
             <h1>Transistor Count Analysis & Prediction</h1>
             <div class="header-actions">
@@ -58,35 +58,35 @@
             <div class="grid">
                 <div class="card featured">
                     <h3>Feature Correlation Matrix</h3>
-                    <img src="/static/transistor_correlation_row.png" alt="Correlation Heatmap">
+                    <img src="{{ url_for('static', filename='transistor_correlation_row.png') }}" alt="Correlation Heatmap">
                 </div>
                 <div class="card half-width">
                     <h3>Linear Regression Fit</h3>
-                    <img src="/static/regression_model.png" alt="Regression Model">
+                    <img src="{{ url_for('static', filename='regression_model.png') }}" alt="Regression Model">
                 </div>
                 <div class="card half-width">
                     <h3>Residual Error Distribution</h3>
-                    <img src="/static/residuals.png" alt="Residuals">
+                    <img src="{{ url_for('static', filename='residuals.png') }}" alt="Residuals">
                 </div>
                 <div class="card">
                     <h3>Temporal Trend (Year)</h3>
-                    <img src="/static/year_count_plots.png" alt="Year Plot">
+                    <img src="{{ url_for('static', filename='year_count_plots.png') }}" alt="Year Plot">
                 </div>
                 <div class="card">
                     <h3>Lithography Scaling (Node)</h3>
-                    <img src="/static/node_count_plots.png" alt="Node Plot">
+                    <img src="{{ url_for('static', filename='node_count_plots.png') }}" alt="Node Plot">
                 </div>
                 <div class="card">
                     <h3>Die Size Correlation (Area)</h3>
-                    <img src="/static/area_count_plots.png" alt="Area Plot">
+                    <img src="{{ url_for('static', filename='area_count_plots.png') }}" alt="Area Plot">
                 </div>
                 <div class="card">
                     <h3>Density Evolution</h3>
-                    <img src="/static/trans_density_count_plots.png" alt="Density Plot">
+                    <img src="{{ url_for('static', filename='trans_density_count_plots.png') }}" alt="Density Plot">
                 </div>
                 <div class="card centered-card">
                     <h3>Power Constraints</h3>
-                    <img src="/static/pow_dens_count_plots.png" alt="Power Plot">
+                    <img src="{{ url_for('static', filename='pow_dens_count_plots.png') }}" alt="Power Plot">
                 </div>
             </div>
         </section>
@@ -199,6 +199,6 @@
         </div>
     </div>
 
-    <script src="/static/script.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
